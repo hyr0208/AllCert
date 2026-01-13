@@ -3,7 +3,6 @@ pipeline {
     
     environment {
         DOCKER_IMAGE = 'allcert'
-        DEPLOY_PATH = '/volume1/docker/allcert'
     }
     
     stages {
@@ -28,13 +27,12 @@ pipeline {
                     sh 'docker stop allcert || true'
                     sh 'docker rm allcert || true'
                     
-                    // Run new container
+                    // Run new container (without custom network)
                     sh '''
                         docker run -d \
                             --name allcert \
                             --restart unless-stopped \
                             -p 3002:80 \
-                            --network web \
                             ${DOCKER_IMAGE}:latest
                     '''
                 }
