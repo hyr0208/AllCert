@@ -1,14 +1,16 @@
 import { useState, useMemo } from "react";
 import { Header } from "./components/Header";
+import { MobileNav } from "./components/MobileNav";
 import { FilterBar } from "./components/FilterBar";
 import { CertGrid } from "./components/CertGrid";
 import { CertDetailModal } from "./components/CertDetailModal";
 import { ExamCalendar } from "./components/ExamCalendar";
+import { InquiryPage } from "./components/InquiryPage";
 import { Footer } from "./components/Footer";
 import { certifications } from "./data/certifications";
 import { CategoryType, Certification } from "./types/certification";
 
-type ViewType = "certs" | "calendar";
+type ViewType = "certs" | "calendar" | "inquiry";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -46,12 +48,10 @@ function App() {
     setSelectedCert(null);
   };
 
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Header currentView={currentView} onViewChange={setCurrentView} />
-
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 pb-8">
-        {currentView === "certs" ? (
+  const renderContent = () => {
+    switch (currentView) {
+      case "certs":
+        return (
           <>
             <FilterBar
               selectedCategory={selectedCategory}
@@ -66,9 +66,25 @@ function App() {
               onCertClick={handleCertClick}
             />
           </>
-        ) : (
-          <ExamCalendar />
-        )}
+        );
+      case "calendar":
+        return <ExamCalendar />;
+      case "inquiry":
+        return <InquiryPage />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header currentView={currentView} onViewChange={setCurrentView} />
+
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 pb-8">
+        {/* Mobile Navigation - Above content */}
+        <MobileNav currentView={currentView} onViewChange={setCurrentView} />
+
+        {renderContent()}
       </main>
 
       <Footer />

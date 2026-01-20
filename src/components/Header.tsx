@@ -1,6 +1,6 @@
-import { Award, List, Calendar } from "lucide-react";
+import { Award, List, Calendar, MessageSquarePlus } from "lucide-react";
 
-type ViewType = "certs" | "calendar";
+type ViewType = "certs" | "calendar" | "inquiry";
 
 interface HeaderProps {
   currentView: ViewType;
@@ -23,8 +23,8 @@ export function Header({ currentView, onViewChange }: HeaderProps) {
             </div>
           </div>
 
-          {/* View Tabs */}
-          <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-xl">
+          {/* View Tabs - Desktop only */}
+          <div className="hidden md:flex items-center gap-1 bg-gray-100 p-1 rounded-xl">
             <button
               onClick={() => onViewChange("certs")}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
@@ -46,6 +46,17 @@ export function Header({ currentView, onViewChange }: HeaderProps) {
             >
               <Calendar className="w-4 h-4 md:block hidden" />
               <span>시험일정</span>
+            </button>
+            <button
+              onClick={() => onViewChange("inquiry")}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                currentView === "inquiry"
+                  ? "bg-white text-blue-600 shadow-sm"
+                  : "text-gray-600 hover:text-gray-900"
+              }`}
+            >
+              <MessageSquarePlus className="w-4 h-4 md:block hidden" />
+              <span>문의하기</span>
             </button>
           </div>
         </div>
