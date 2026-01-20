@@ -4,6 +4,7 @@ import { Certification } from "../types/certification";
 interface CertCardProps {
   certification: Certification;
   index: number;
+  onCardClick: (certification: Certification) => void;
 }
 
 const getCategoryTagClass = (category: string): string => {
@@ -25,16 +26,12 @@ const getCategoryTagClass = (category: string): string => {
   }
 };
 
-export function CertCard({ certification, index }: CertCardProps) {
-  const handleClick = () => {
-    window.open(certification.website, "_blank", "noopener,noreferrer");
-  };
-
+export function CertCard({ certification, index, onCardClick }: CertCardProps) {
   return (
     <div
       className="glass-card p-5 cursor-pointer group transition-all duration-300 hover:scale-[1.02] card-stagger"
       style={{ animationDelay: `${index * 50}ms` }}
-      onClick={handleClick}
+      onClick={() => onCardClick(certification)}
     >
       {/* Category Tag */}
       <div className="flex items-start justify-between mb-3">

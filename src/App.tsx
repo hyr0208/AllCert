@@ -2,10 +2,11 @@ import { useState, useMemo } from "react";
 import { Header } from "./components/Header";
 import { FilterBar } from "./components/FilterBar";
 import { CertGrid } from "./components/CertGrid";
+import { CertDetailModal } from "./components/CertDetailModal";
 import { ExamCalendar } from "./components/ExamCalendar";
 import { Footer } from "./components/Footer";
 import { certifications } from "./data/certifications";
-import { CategoryType } from "./types/certification";
+import { CategoryType, Certification } from "./types/certification";
 
 type ViewType = "certs" | "calendar";
 
@@ -15,6 +16,7 @@ function App() {
     CategoryType | "전체"
   >("전체");
   const [currentView, setCurrentView] = useState<ViewType>("certs");
+  const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
 
   const filteredCertifications = useMemo(() => {
     return certifications.filter((cert) => {
@@ -36,6 +38,14 @@ function App() {
     });
   }, [searchQuery, selectedCategory]);
 
+  const handleCertClick = (certification: Certification) => {
+    setSelectedCert(certification);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedCert(null);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header currentView={currentView} onViewChange={setCurrentView} />
@@ -53,6 +63,7 @@ function App() {
             <CertGrid
               certifications={filteredCertifications}
               searchQuery={searchQuery}
+              onCertClick={handleCertClick}
             />
           </>
         ) : (
@@ -61,6 +72,14 @@ function App() {
       </main>
 
       <Footer />
+
+      {/* 자격증 상세 모달 */}
+      {selectedCert && (
+        <CertDetailModal
+          certification={selectedCert}
+          onClose={handleCloseModal}
+        />
+      )}
     </div>
   );
 }

@@ -901,3 +901,10 @@ export function getEventsByMonth(year: number, month: number): ExamEvent[] {
   const monthStr = `${year}-${String(month).padStart(2, "0")}`;
   return examSchedules.filter((event) => event.date.startsWith(monthStr));
 }
+
+// 자격증 ID로 이벤트 필터링 헬퍼 함수
+export function getEventsByCertificationId(certId: string): ExamEvent[] {
+  return examSchedules
+    .filter((event) => event.certificationId === certId)
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
