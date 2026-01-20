@@ -344,6 +344,18 @@ body {
   color: #3b82f6;
 }
 
+/* 오늘 날짜 표시 */
+.calendar-cell.today .cell-date {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: white !important;
+}
+
 .cell-date {
   font-size: 0.875rem;
   font-weight: 600;

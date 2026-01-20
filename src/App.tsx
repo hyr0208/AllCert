@@ -38,12 +38,7 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-        currentView={currentView}
-        onViewChange={setCurrentView}
-      />
+      <Header currentView={currentView} onViewChange={setCurrentView} />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 pb-8">
         {currentView === "certs" ? (
@@ -52,6 +47,8 @@ function App() {
               selectedCategory={selectedCategory}
               onCategoryChange={setSelectedCategory}
               resultCount={filteredCertifications.length}
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
             />
             <CertGrid
               certifications={filteredCertifications}

@@ -27,6 +27,12 @@ export function ExamCalendar() {
   >("전체");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
+  // 오늘 날짜
+  const today = new Date();
+  const todayStr = `${today.getFullYear()}-${String(
+    today.getMonth() + 1
+  ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
@@ -222,13 +228,14 @@ export function ExamCalendar() {
             const isSunday = dayOfWeek === 0;
             const isSaturday = dayOfWeek === 6;
             const hasEvents = dayEvents.length > 0;
+            const isToday = dateStr === todayStr;
 
             return (
               <div
                 key={dateStr}
                 className={`calendar-cell ${isSunday ? "sunday" : ""} ${
                   isSaturday ? "saturday" : ""
-                } ${hasEvents ? "has-events" : ""}`}
+                } ${hasEvents ? "has-events" : ""} ${isToday ? "today" : ""}`}
                 onClick={() => handleCellClick(dateStr, dayEvents)}
               >
                 <div className="cell-date">
