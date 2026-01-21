@@ -352,7 +352,7 @@ body {
   color: #3b82f6;
 }
 
-/* 오늘 날짜 표시 */
+/* 오늘 날짜 표시 - 빨간색 테두리 링 */
 .calendar-cell.today .cell-date {
   display: inline-flex;
   align-items: center;
@@ -360,8 +360,9 @@ body {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #3b82f6;
-  color: white !important;
+  background: transparent;
+  border: 2px solid #ef4444;
+  /* color: #ef4444 !important; */
 }
 
 .cell-date {
@@ -441,10 +442,10 @@ body {
     font-size: 0.875rem;
   }
 
-  /* 파란색 뱃지는 셀 정중앙에 */
+  /* 파란색 뱃지는 날짜 아래에 */
   .mobile-event-count {
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
