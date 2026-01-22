@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 자격증 정보
+model Certification {
+  id           String   @id
+  name         String
+  category     String
+  organization String
+  website      String?
+  description  String?
+  tags         String[]
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  schedules ExamSchedule[]
+
+  @@map("certifications")
+}
+
+// 시험 일정
+model ExamSchedule {
+  id                Int      @id @default(autoincrement())
+  date              DateTime @db.Date
+  certificationId   String   @map("certification_id")
+  certificationName String   @map("certification_name")
+  eventType         String   @map("event_type")
+  round             String?
+  description       String?
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  certification Certification @relation(fields: [certificationId], references: [id])
+
+  @@map("exam_schedules")
+}

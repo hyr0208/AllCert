@@ -1,0 +1,18 @@
+services:
+  api:
+    build: .
+    container_name: allcert-api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/db
+      PORT: 3000
+      TZ: Asia/Seoul
+    ports:
+      - '3001:3000'
+    networks:
+      - allcert-network
+
+networks:
+  allcert-network:
+    external: true
+    name: db_default
