@@ -14,8 +14,16 @@ pipeline {
         
         stage('Build Docker Image') {
             steps {
-                script {
-                    sh 'docker build -t ${DOCKER_IMAGE}:latest .'
+                withCredentials([string(credentialsId: 'VITE_SUPABASE_URL', variable: 'SUPABASE_URL'),
+                                string(credentialsId: 'VITE_SUPABASE_ANON_KEY', variable: 'SUPABASE_KEY')]) {
+                    script {
+                        sh '''
+                            docker build \
+                                --build-arg VITE_SUPABASE_URL=$SUPABASE_URL \
+                                --build-arg VITE_SUPABASE_ANON_KEY=$SUPABASE_KEY \
+                                -t ${DOCKER_IMAGE}:latest .
+                        '''
+                    }
                 }
             }
         }
