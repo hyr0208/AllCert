@@ -3,6 +3,8 @@ pipeline {
     
     environment {
         DOCKER_IMAGE = 'allcert'
+        VITE_SUPABASE_URL = 'https://sufdhcqeqsggecmatreg.supabase.co'
+        VITE_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1ZmRoY3FlcXNnZ2VjbWF0cmVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA3NDMxNzAsImV4cCI6MjA4NjMxOTE3MH0.RBdPAzYYB6N5o0ff283DYS7mfPAatmGnb8wHaxS6PHY'
     }
     
     stages {
@@ -14,16 +16,13 @@ pipeline {
         
         stage('Build Docker Image') {
             steps {
-                withCredentials([string(credentialsId: 'VITE_SUPABASE_URL', variable: 'SUPABASE_URL'),
-                                string(credentialsId: 'VITE_SUPABASE_ANON_KEY', variable: 'SUPABASE_KEY')]) {
-                    script {
-                        sh '''
-                            docker build \
-                                --build-arg VITE_SUPABASE_URL=$SUPABASE_URL \
-                                --build-arg VITE_SUPABASE_ANON_KEY=$SUPABASE_KEY \
-                                -t ${DOCKER_IMAGE}:latest .
-                        '''
-                    }
+                script {
+                    sh '''
+                        docker build \
+                            --build-arg VITE_SUPABASE_URL=$VITE_SUPABASE_URL \
+                            --build-arg VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY \
+                            -t ${DOCKER_IMAGE}:latest .
+                    '''
                 }
             }
         }
