@@ -21,7 +21,9 @@ const MONTHS = [
 ];
 
 export function ExamCalendar() {
-  const [currentDate, setCurrentDate] = useState(() => new Date(2026, 0, 1)); // 2026년 1월
+  const [currentDate, setCurrentDate] = useState(
+    () => new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+  ); // 현재 월
   const [selectedEventType, setSelectedEventType] = useState<
     EventType | "전체"
   >("전체");
@@ -90,7 +92,8 @@ export function ExamCalendar() {
   };
 
   const goToToday = () => {
-    setCurrentDate(new Date(2026, 0, 1)); // 2026년 1월로 고정
+    const now = new Date();
+    setCurrentDate(new Date(now.getFullYear(), now.getMonth(), 1)); // 현재 월로 이동
   };
 
   const formatDateString = (day: number) => {
