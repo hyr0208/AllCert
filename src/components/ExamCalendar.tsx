@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { CalendarEventBadge } from "./CalendarEventBadge";
 import { EventDetailModal } from "./EventDetailModal";
-import { getEventsByMonth } from "../data/examSchedules";
+import { useExamSchedulesByMonth } from "../hooks/useExamSchedules";
 import { ExamEvent, EVENT_COLORS, EventType } from "../types/examSchedule";
 
 const DAYS_OF_WEEK = ["일", "월", "화", "수", "목", "금", "토"];
@@ -30,18 +30,22 @@ export function ExamCalendar() {
   // 오늘 날짜
   const today = new Date();
   const todayStr = `${today.getFullYear()}-${String(
-    today.getMonth() + 1
+    today.getMonth() + 1,
   ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
-  // 해당 월의 이벤트 가져오기
+  // Supabase에서 해당 월의 이벤트 가져오기
+  const { events: rawEvents, loading } = useExamSchedulesByMonth(
+    year,
+    month + 1,
+  );
+
   const monthEvents = useMemo(() => {
-    const events = getEventsByMonth(year, month + 1);
-    if (selectedEventType === "전체") return events;
-    return events.filter((e) => e.eventType === selectedEventType);
-  }, [year, month, selectedEventType]);
+    if (selectedEventType === "전체") return rawEvents;
+    return rawEvents.filter((e) => e.eventType === selectedEventType);
+  }, [rawEvents, selectedEventType]);
 
   // 날짜별 이벤트 맵
   const eventsByDate = useMemo(() => {
@@ -91,7 +95,7 @@ export function ExamCalendar() {
 
   const formatDateString = (day: number) => {
     return `${year}-${String(month + 1).padStart(2, "0")}-${String(
-      day
+      day,
     ).padStart(2, "0")}`;
   };
 
@@ -196,6 +200,20 @@ export function ExamCalendar() {
           ))}
         </div>
       </div>
+
+      {/* 로딩 표시 */}
+      {loading && (
+        <div
+          style={{
+            textAlign: "center",
+            padding: "12px",
+            color: "#6b7280",
+            fontSize: "14px",
+          }}
+        >
+          일정을 불러오는 중...
+        </div>
+      )}
 
       {/* 캘린더 그리드 */}
       <div className="calendar-grid-container">

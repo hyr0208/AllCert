@@ -1,6 +1,6 @@
 import { X, ExternalLink, Building2, Calendar, Award } from "lucide-react";
 import { Certification } from "../types/certification";
-import { getEventsByCertificationId } from "../data/examSchedules";
+import { useExamSchedulesByCertId } from "../hooks/useExamSchedules";
 import { EVENT_COLORS } from "../types/examSchedule";
 
 interface CertDetailModalProps {
@@ -17,13 +17,14 @@ export function CertDetailModal({
   certification,
   onClose,
 }: CertDetailModalProps) {
-  // 해당 자격증의 시험 일정 가져오기
-  const examEvents = getEventsByCertificationId(certification.id);
+  // Supabase에서 해당 자격증의 시험 일정 가져오기
+  const { events: examEvents, loading: scheduleLoading } =
+    useExamSchedulesByCertId(certification.id);
 
   // 오늘 이후의 일정만 필터링
   const today = new Date();
   const todayStr = `${today.getFullYear()}-${String(
-    today.getMonth() + 1
+    today.getMonth() + 1,
   ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
   const upcomingEvents = examEvents.filter((e) => e.date >= todayStr);
 
@@ -77,7 +78,13 @@ export function CertDetailModal({
               <span>다가오는 시험 일정</span>
             </h3>
 
-            {upcomingEvents.length > 0 ? (
+            {scheduleLoading ? (
+              <p
+                style={{ color: "#6b7280", fontSize: "14px", padding: "8px 0" }}
+              >
+                일정을 불러오는 중...
+              </p>
+            ) : upcomingEvents.length > 0 ? (
               <div className="schedule-list">
                 {upcomingEvents.slice(0, 5).map((event, idx) => (
                   <div key={idx} className="schedule-item">

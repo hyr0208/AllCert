@@ -7,12 +7,13 @@ import { CertDetailModal } from "./components/CertDetailModal";
 import { ExamCalendar } from "./components/ExamCalendar";
 import { InquiryPage } from "./components/InquiryPage";
 import { Footer } from "./components/Footer";
-import { certifications } from "./data/certifications";
+import { useCertifications } from "./hooks/useCertifications";
 import { CategoryType, Certification } from "./types/certification";
 
 type ViewType = "certs" | "calendar" | "inquiry";
 
 function App() {
+  const { certifications, loading: certsLoading } = useCertifications();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<
     CategoryType | "전체"
@@ -38,7 +39,7 @@ function App() {
 
       return matchesCategory && matchesSearch;
     });
-  }, [searchQuery, selectedCategory]);
+  }, [searchQuery, selectedCategory, certifications]);
 
   const handleCertClick = (certification: Certification) => {
     setSelectedCert(certification);
@@ -51,7 +52,13 @@ function App() {
   const renderContent = () => {
     switch (currentView) {
       case "certs":
-        return (
+        return certsLoading ? (
+          <div
+            style={{ textAlign: "center", padding: "60px 0", color: "#6b7280" }}
+          >
+            <p style={{ fontSize: "16px" }}>자격증 목록을 불러오는 중...</p>
+          </div>
+        ) : (
           <>
             <FilterBar
               selectedCategory={selectedCategory}
