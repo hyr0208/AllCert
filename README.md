@@ -12,6 +12,7 @@
 - 📚 **다양한 자격증 정보** - IT, 어학, 전문자격, 기술, 금융, 디자인 등 다양한 분야의 자격증 정보 제공
 - 🔍 **실시간 검색** - 자격증 이름, 기관, 키워드로 빠르게 검색
 - 🏷️ **카테고리 필터링** - 원하는 분야의 자격증만 모아보기
+- 📅 **시험일정 캘린더** - 월별 시험일정을 캘린더뷰로 확인, 접수/시험/합격발표 등 일정 유형별 필터링
 - 🔗 **공식 사이트 연결** - 클릭 한 번으로 자격증 공식 사이트 바로가기
 - 📱 **반응형 디자인** - PC, 태블릿, 모바일 모든 기기에서 최적화된 화면
 
@@ -53,21 +54,37 @@ npm run preview
 ```
 AllCert/
 ├── src/
-│   ├── components/      # React 컴포넌트
-│   │   ├── Header.tsx       # 헤더 및 검색바
-│   │   ├── FilterBar.tsx    # 카테고리 필터
-│   │   ├── CertGrid.tsx     # 자격증 그리드
-│   │   ├── CertCard.tsx     # 자격증 카드
-│   │   └── Footer.tsx       # 푸터
+│   ├── components/          # React 컴포넌트
+│   │   ├── Header.tsx           # 헤더 및 검색바
+│   │   ├── MobileNav.tsx        # 모바일 하단 네비게이션
+│   │   ├── FilterBar.tsx        # 카테고리 필터
+│   │   ├── CertGrid.tsx         # 자격증 그리드
+│   │   ├── CertCard.tsx         # 자격증 카드
+│   │   ├── CertDetailModal.tsx  # 자격증 상세 모달
+│   │   ├── ExamCalendar.tsx     # 시험일정 캘린더
+│   │   ├── CalendarEventBadge.tsx # 캘린더 이벤트 뱃지
+│   │   ├── EventDetailModal.tsx # 이벤트 상세 모달
+│   │   ├── InquiryPage.tsx      # 문의 페이지
+│   │   └── Footer.tsx           # 푸터
 │   ├── data/
-│   │   └── certifications.ts   # 자격증 데이터
+│   │   ├── certifications.ts    # 자격증 데이터
+│   │   └── examSchedules.ts     # 시험일정 데이터
+│   ├── hooks/
+│   │   ├── useCertifications.ts # 자격증 데이터 훅
+│   │   └── useExamSchedules.ts  # 시험일정 데이터 훅 (Supabase)
+│   ├── lib/
+│   │   └── supabaseClient.ts    # Supabase 클라이언트 설정
 │   ├── types/
-│   │   └── certification.ts    # TypeScript 타입 정의
-│   ├── App.tsx          # 메인 앱 컴포넌트
-│   ├── main.tsx         # 엔트리 포인트
-│   └── index.css        # 전역 스타일
-├── public/              # 정적 파일
-├── index.html           # HTML 템플릿
+│   │   ├── certification.ts     # 자격증 타입 정의
+│   │   └── examSchedule.ts      # 시험일정 타입 정의
+│   ├── App.tsx              # 메인 앱 컴포넌트
+│   ├── main.tsx             # 엔트리 포인트
+│   └── index.css            # 전역 스타일
+├── server/                  # 백엔드 서버
+├── supabase/                # Supabase 시드 데이터
+├── scripts/                 # 크롤링 스크립트
+├── public/                  # 정적 파일
+├── index.html               # HTML 템플릿
 └── package.json
 ```
 
@@ -90,6 +107,7 @@ AllCert/
 - **Build Tool:** Vite
 - **Styling:** TailwindCSS
 - **Icons:** Lucide React
+- **Backend / DB:** Supabase
 
 ## 📝 자격증 추가하기
 
@@ -117,4 +135,4 @@ MIT License
 
 ---
 
-Made with ❤️ for certification seekers
+Made with ❤️ by **yyyerin**
