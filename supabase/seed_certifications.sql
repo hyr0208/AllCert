@@ -79,4 +79,9 @@ INSERT INTO certifications (id, name, category, organization, website, descripti
 ('korean-history-2', '한국사능력검정시험 2급', '기타', '국사편찬위원회', 'https://www.historyexam.go.kr/', '한국사 이해 능력 검증 국가시험', ARRAY['한국사','역사','국가시험']),
 ('driving-license-1', '운전면허 1종', '기타', '경찰청', 'https://www.safedriving.or.kr/', '승용차, 승합차, 화물차 운전 자격', ARRAY['운전','면허','국가자격']),
 ('cooking-korean', '한식조리기능사', '기타', '한국산업인력공단', 'https://www.q-net.or.kr/crf005.do?id=crf00505&gSite=Q&gId=', '한식 조리에 관한 국가기술자격', ARRAY['조리','요리','한식','국가자격','기능사']),
-('welfare-worker-1', '사회복지사 1급', '기타', '한국사회복지사협회', 'https://www.q-net.or.kr/crf005.do?id=crf00505&gSite=Q&gId=', '사회복지 전문 업무 수행 자격', ARRAY['복지','사회복지','국가자격']);
+('welfare-worker-1', '사회복지사 1급', '기타', '한국사회복지사협회', 'https://www.q-net.or.kr/crf005.do?id=crf00505&gSite=Q&gId=', '사회복지 전문 업무 수행 자격', ARRAY['복지','사회복지','국가자격']),
+-- 추가: 시험일정 크롤링에서 사용되는 자격증
+('craftsman-info-processing', '정보처리기능사', 'IT', '한국산업인력공단', 'https://www.q-net.or.kr/crf005.do?id=crf00505&gSite=Q&gId=', '정보처리 분야 기능사 수준 국가기술자격', ARRAY['국가자격','정보처리','IT','기능사']),
+('craftsman-electrical', '전기기능사', '기술', '한국산업인력공단', 'https://www.q-net.or.kr/crf005.do?id=crf00505&gSite=Q&gId=', '전기설비 기초 실무에 관한 국가기술자격', ARRAY['전기','설비','국가자격','기능사']),
+('adsp', 'ADsP (데이터분석 준전문가)', 'IT', '한국데이터산업진흥원', 'https://www.dataq.or.kr/', '데이터 분석 기획 및 활용 능력 검증 준전문가 자격', ARRAY['데이터','분석','빅데이터','민간자격']),
+('bigdata-engineer', '빅데이터분석기사', 'IT', '한국데이터산업진흥원', 'https://www.dataq.or.kr/', '빅데이터 수집·저장·처리·분석에 관한 국가기술자격', ARRAY['빅데이터','데이터분석','AI','국가자격','기사']);
