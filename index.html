@@ -1,20 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO 기본 메타 -->
+    <title>AllCert - 모든 자격증 정보 & 시험일정 포털</title>
     <meta
       name="description"
-      content="모든 자격증 정보를 한 곳에서! 자격증 검색, 시험 정보, 공식 사이트 바로가기"
+      content="정보처리기사, 전기기사, SQLD, TOEIC 등 70개 이상 자격증 정보를 한 곳에서! 2026년 시험일정, 접수기간, 합격발표일을 캘린더로 확인하세요."
     />
+    <meta
+      name="keywords"
+      content="자격증, 시험일정, 정보처리기사, 전기기사, SQLD, TOEIC, 한국사능력검정, 기능사, 기사시험, 자격증시험일정, 2026시험일정, 합격발표, 원서접수"
+    />
+    <link rel="canonical" href="https://allcert.yyyerin.co.kr/" />
+
+    <!-- 네이버 웹마스터 도구 인증 (등록 후 content 값 교체 필요) -->
+    <!-- <meta name="naver-site-verification" content="YOUR_NAVER_CODE" /> -->
+
+    <!-- 구글 서치 콘솔 인증 (등록 후 content 값 교체 필요) -->
+    <!-- <meta name="google-site-verification" content="YOUR_GOOGLE_CODE" /> -->
 
     <!-- Open Graph / 카카오톡 공유용 -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="AllCert - 모든 자격증 포털" />
+    <meta
+      property="og:title"
+      content="AllCert - 모든 자격증 정보 & 시험일정 포털"
+    />
     <meta
       property="og:description"
-      content="모든 자격증 정보를 한 곳에서! 자격증 검색, 시험 일정, 공식 사이트 바로가기"
+      content="정보처리기사, 전기기사, SQLD 등 70개 이상 자격증 정보와 2026년 시험일정을 한 곳에서 확인하세요."
     />
     <meta
       property="og:image"
@@ -22,20 +39,49 @@
     />
     <meta property="og:url" content="https://allcert.yyyerin.co.kr" />
     <meta property="og:site_name" content="AllCert" />
+    <meta property="og:locale" content="ko_KR" />
 
     <!-- 트위터 카드 -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="AllCert - 모든 자격증 포털" />
+    <meta
+      name="twitter:title"
+      content="AllCert - 모든 자격증 정보 & 시험일정 포털"
+    />
     <meta
       name="twitter:description"
-      content="모든 자격증 정보를 한 곳에서! 자격증 검색, 시험 일정, 공식 사이트 바로가기"
+      content="정보처리기사, 전기기사, SQLD 등 70개 이상 자격증 정보와 2026년 시험일정을 한 곳에서 확인하세요."
     />
     <meta
       name="twitter:image"
       content="https://allcert.yyyerin.co.kr/og-image.png"
     />
 
-    <title>AllCert - 모든 자격증 포털</title>
+    <!-- 구조화 데이터 (JSON-LD) — 구글 검색 리치 결과용 -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "AllCert - 모든 자격증 포털",
+        "url": "https://allcert.yyyerin.co.kr",
+        "description": "정보처리기사, 전기기사, SQLD, TOEIC 등 70개 이상 자격증 정보와 시험일정을 한 곳에서 확인하세요.",
+        "inLanguage": "ko",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://allcert.yyyerin.co.kr/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "AllCert",
+        "url": "https://allcert.yyyerin.co.kr",
+        "logo": "https://allcert.yyyerin.co.kr/og-image.png"
+      }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -46,5 +92,15 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- 검색엔진 크롤러용 noscript 콘텐츠 -->
+    <noscript>
+      <h1>AllCert - 모든 자격증 정보 & 시험일정 포털</h1>
+      <p>
+        정보처리기사, 전기기사, 건축기사, SQLD, TOEIC, 한국사능력검정 등 70개
+        이상 자격증의 시험일정, 접수기간, 합격발표일을 한 곳에서 확인하세요.
+      </p>
+      <p>카테고리: IT, 어학, 전문자격, 기술, 금융, 디자인</p>
+    </noscript>
   </body>
 </html>

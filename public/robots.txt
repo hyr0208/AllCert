@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://allcert.yyyerin.co.kr/sitemap.xml
