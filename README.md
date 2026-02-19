@@ -81,8 +81,8 @@ AllCert/
 │   ├── main.tsx             # 엔트리 포인트
 │   └── index.css            # 전역 스타일
 ├── server/                  # 백엔드 서버
-├── supabase/                # Supabase 시드 데이터
-├── scripts/                 # 크롤링 스크립트
+├── supabase/                # Supabase 시드 데이터 (SQL)
+├── scripts/                 # 시험일정 크롤링 스크립트 (Playwright)
 ├── public/                  # 정적 파일
 ├── index.html               # HTML 템플릿
 └── package.json
@@ -108,21 +108,33 @@ AllCert/
 - **Styling:** TailwindCSS
 - **Icons:** Lucide React
 - **Backend / DB:** Supabase
+- **크롤링:** Playwright (headless browser)
+
+## 📅 시험일정 크롤링
+
+Q-net, 한국사능력검정시험 등 공식 사이트에서 시험일정을 자동으로 수집합니다.
+
+```bash
+# 시험일정 크롤링 & SQL 생성
+npx tsx scripts/crawl-schedules.ts
+```
+
+실행하면 `supabase/seed_exam_schedules.sql` 파일이 생성됩니다.  
+Supabase SQL Editor에서 이 파일을 실행하면 DB에 반영됩니다.
+
+| 소스                          |    방식     | 대상                                     |
+| ----------------------------- | :---------: | ---------------------------------------- |
+| Q-net (한국산업인력공단)      |  🌐 크롤링  | 정보처리기사, 전기기사, 건축기사 등 14종 |
+| 한국사능력검정시험            |  🌐 크롤링  | 한국사 1·2급                             |
+| SQLD/SQLP, TOEIC, CPA, GTQ 등 | 📝 하드코딩 | 크롤링 불가 사이트                       |
 
 ## 📝 자격증 추가하기
 
-새로운 자격증을 추가하려면 `src/data/certifications.ts` 파일에 다음 형식으로 추가하세요:
+새로운 자격증을 추가하려면 `supabase/seed_certifications.sql`에 추가 후 Supabase에서 실행하세요.
 
-```typescript
-{
-  id: "unique-id",
-  name: "자격증 이름",
-  category: "IT", // IT | 어학 | 전문자격 | 기술 | 금융 | 디자인 | 기타
-  organization: "주관 기관",
-  website: "https://example.com",
-  description: "자격증 설명",
-  tags: ["태그1", "태그2", "태그3"],
-}
+```sql
+INSERT INTO certifications (id, name, category, organization, website, description, tags) VALUES
+('unique-id', '자격증 이름', 'IT', '주관 기관', 'https://example.com', '설명', ARRAY['태그1','태그2']);
 ```
 
 ## 🚀 배포
